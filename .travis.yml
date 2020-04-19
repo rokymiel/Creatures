@@ -1,4 +1,4 @@
-
+language: csharp
 solution: HomeWorkTest.sln
 mono:
   - latest
