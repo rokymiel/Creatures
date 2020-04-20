@@ -1,9 +1,0 @@
-language: csharp
-solution: HomeWorkTest.sln
-mono: none
-dotnet: 2.1.502
-script:
-  - dotnet test CreatureTest/CreatureTest.csproj
-branches:
-  only:
-    - master
