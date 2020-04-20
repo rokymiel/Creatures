@@ -13,7 +13,7 @@ namespace CreatureTest
         public void TestToString()
         {
             Creature a = new Creature("Mambad", MovementType.Walking, 3.7689);
-            Assert.AreEqual(a.ToString(), "Walking creature Mambad: Health = 3,769");
+            Assert.AreEqual(a.ToString(), $"Walking creature Mambad: Health = {3.769}");
         }
         [TestMethod]
         public void TestOperator_1()
