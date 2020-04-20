@@ -21,22 +21,6 @@ namespace CreatureGenerator
                 Console.WriteLine(string.Join(",", creatures));
                 WriteCreaturesToXml(creatures, xmlPath);
             }
-            catch (SerializationException ex)
-            {
-                Console.WriteLine("Ошибка сериализации объекта.");
-            }
-            catch (IOException ex)
-            {
-                Console.WriteLine("Ошибка ввода/вывода.");
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Console.WriteLine("У вас нет разрешения на создание файла.");
-            }
-            catch (System.Security.SecurityException ex)
-            {
-                Console.WriteLine("Ошибка безопасности.");
-            }
             catch (Exception ex)
             {
                 Console.WriteLine($"Произошла непредвиденная ошибка. {ex.Message}");
@@ -44,10 +28,29 @@ namespace CreatureGenerator
         }
         public static void WriteCreaturesToXml(List<Creature> creatures, string path)
         {
-            using (FileStream writer = new FileStream(path, FileMode.Create))
+            try
             {
-                DataContractSerializer ser = new DataContractSerializer(creatures.GetType());
-                ser.WriteObject(writer, creatures);
+                using (FileStream writer = new FileStream(path, FileMode.Create))
+                {
+                    DataContractSerializer ser = new DataContractSerializer(creatures.GetType());
+                    ser.WriteObject(writer, creatures);
+                }
+            }
+            catch (SerializationException)
+            {
+                Console.WriteLine("Ошибка сериализации объекта.");
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("Ошибка ввода/вывода.");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine("У вас нет разрешения на создание файла.");
+            }
+            catch (System.Security.SecurityException)
+            {
+                Console.WriteLine("Ошибка безопасности.");
             }
         }
 
