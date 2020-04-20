@@ -1,4 +1,6 @@
 # Домаха с тестами и прочими пирогами
+https://ci.appveyor.com/api/projects/status/5x4289yxcx3bh0vd?svg=true
+
 Здесь есть
 
   -Сериализация/десериализация\
