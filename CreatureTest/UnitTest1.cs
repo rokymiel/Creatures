@@ -16,11 +16,18 @@ namespace CreatureTest
             Assert.AreEqual(a.ToString(), "Walking creature Mambad: Health = 3,769");
         }
         [TestMethod]
-        public void TestOperator()
+        public void TestOperator_1()
         {
             Creature am = new Creature("Amadeus", MovementType.Swimming, 7.3);
             Creature be = new Creature("Bethov", MovementType.Swimming, 8.7);
             Assert.AreEqual(am * be, new Creature("Amadhov", MovementType.Swimming, (7.3 + 8.7) / 2));
+        }
+        [TestMethod]
+        public void TestOperator_2()
+        {
+            Creature am = new Creature("Amad", MovementType.Swimming, 7.3);
+            Creature be = new Creature("Bethovs", MovementType.Swimming, 8.7);
+            Assert.AreEqual(am * be, new Creature("Bethad", MovementType.Swimming, (7.3 + 8.7) / 2));
         }
         [TestMethod]
         public void TestObjectSerialaize()
