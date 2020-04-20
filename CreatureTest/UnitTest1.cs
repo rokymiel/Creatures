@@ -25,9 +25,9 @@ namespace CreatureTest
         [TestMethod]
         public void TestOperator_2()
         {
-            Creature am = new Creature("Amad", MovementType.Swimming, 7.3);
-            Creature be = new Creature("Bethovs", MovementType.Swimming, 8.7);
-            Assert.AreEqual(am * be, new Creature("Bethad", MovementType.Swimming, (7.3 + 8.7) / 2));
+            Creature am = new Creature("Amadad", MovementType.Swimming, 7.3);
+            Creature be = new Creature("Bethovlks", MovementType.Swimming, 8.7);
+            Assert.AreEqual(am * be, new Creature("Bethodad", MovementType.Swimming, (7.3 + 8.7) / 2));
         }
         [TestMethod]
         public void TestObjectSerialaize()
