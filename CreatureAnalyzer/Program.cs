@@ -80,7 +80,7 @@ namespace CreatureAnalyzer
         public static void WriteCreaturesSortedByHeath(IEnumerable<Creature> creatures, string message)
         {
             Console.WriteLine(message);
-            creatures.OrderBy(x => x.Health).Take(10).ToList().ForEach(x => Console.WriteLine(x));
+            creatures.OrderByDescending(x => x.Health).Take(10).ToList().ForEach(x => Console.WriteLine(x));
         }
         /// <summary>
         /// Чтение списка существ из файла в формате XML.
