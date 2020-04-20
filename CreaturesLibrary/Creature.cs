@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace CreaturesLibrary
 {
@@ -15,21 +16,55 @@ namespace CreaturesLibrary
             MovementType = movementType;
             Health = health;
         }
+        private string name;
         /// <summary>
         /// Имя существа.
         /// </summary>
         [DataMember]
-        public string Name { get; private set; }
+        public string Name
+        {
+            get => name;
+            private set
+            {
+                if (Regex.IsMatch(value, @"^[A-Z][a-z]{5,9}$"))
+                    name = value;
+                else
+                    throw new ArgumentException("Недопустимое имя!");
+            }
+        }
+
+        private MovementType movementType;
         /// <summary>
         /// Тип существа.
         /// </summary>
         [DataMember]
-        public MovementType MovementType { get; private set; }
+        public MovementType MovementType
+        {
+            get => movementType;
+            private set
+            {
+                if ((int)value >= 3)
+                    throw new ArgumentException("Неверный тип существа!");
+                else
+                    movementType = value;
+            }
+        }
+        private double health;
         /// <summary>
         /// Здоровье существа.
         /// </summary>
         [DataMember]
-        public double Health { get; private set; }
+        public double Health
+        {
+            get => health;
+            private set
+            {
+                if (value < 0 || value >= 10)
+                    throw new ArgumentException("Неверное здоровье существа!");
+                else
+                    health = value;
+            }
+        }
 
         public override string ToString()
         {
