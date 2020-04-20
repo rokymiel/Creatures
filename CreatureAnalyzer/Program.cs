@@ -16,39 +16,22 @@ namespace CreatureAnalyzer
             try
             {
                 List<Creature> creatures = ReadCreaturesFromXml(xmlPath);
-                WriteSwimming(creatures);
-                Console.WriteLine(new string('=', 50));
-                WriteCreaturesSortedByHeath(creatures, "Сортировка по здоровью");
-                Console.WriteLine(new string('=', 50));
-                var group = WriteGroupOfCreatures(creatures);
-                Console.WriteLine(new string('=', 50));
-                WriteCreaturesSortedByHeath(group, "Сортировка предыдущего списка по здоровью");
+                if (creatures != null)
+                {
+                    WriteSwimming(creatures);
+                    Console.WriteLine(new string('=', 50));
+                    WriteCreaturesSortedByHeath(creatures, "Сортировка по здоровью");
+                    Console.WriteLine(new string('=', 50));
+                    var group = WriteGroupOfCreatures(creatures);
+                    Console.WriteLine(new string('=', 50));
+                    WriteCreaturesSortedByHeath(group, "Сортировка предыдущего списка по здоровью");
+                }
             }
-            catch (FileNotFoundException ex)
-            {
-                Console.WriteLine("Файл не найден.");
-            }
-            catch (SerializationException ex)
-            {
-                Console.WriteLine("Ошибка создания списка объектов из файла.");
-            }
-            catch (IOException ex)
-            {
-                Console.WriteLine("Ошибка ввода/вывода.");
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Console.WriteLine("У вас нет разрешения на создание файла.");
-            }
-            catch (System.Security.SecurityException ex)
-            {
-                Console.WriteLine("Ошибка безопасности.");
-            }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Произошла непредвиденная ошибка. {ex.Message}");
             }
-            
+
         }
         /// <summary>
         /// Выводит группы перемноженные внутри.
@@ -89,13 +72,41 @@ namespace CreatureAnalyzer
         /// <returns>Список существ.</returns>
         public static List<Creature> ReadCreaturesFromXml(string path)
         {
-            List<Creature> creatures;
-            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            try
             {
-                DataContractSerializer ser = new DataContractSerializer(typeof(List<Creature>));
-                creatures = (List<Creature>)ser.ReadObject(fs);
+                List<Creature> creatures;
+                using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+                {
+                    DataContractSerializer ser = new DataContractSerializer(typeof(List<Creature>));
+                    creatures = (List<Creature>)ser.ReadObject(fs);
+                }
+                return creatures;
             }
-            return creatures;
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Файл не найден.");
+                return null;
+            }
+            catch (SerializationException)
+            {
+                Console.WriteLine("Ошибка создания списка объектов из файла.");
+                return null;
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("Ошибка ввода/вывода.");
+                return null;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine("У вас нет разрешения на создание файла.");
+                return null;
+            }
+            catch (System.Security.SecurityException)
+            {
+                Console.WriteLine("Ошибка безопасности.");
+                return null;
+            }
         }
     }
 }

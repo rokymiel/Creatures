@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Xml;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
+
 namespace CreaturesLibrary
 {
     [DataContract]
@@ -67,7 +69,16 @@ namespace CreaturesLibrary
         public override bool Equals(object obj)
         {
             var other = obj as Creature;
-            return Name==other.Name&&MovementType==other.MovementType&&Health==other.Health;
+            return Name == other.Name && MovementType == other.MovementType && Health == other.Health;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1320871205;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + MovementType.GetHashCode();
+            hashCode = hashCode * -1521134295 + Health.GetHashCode();
+            return hashCode;
         }
     }
 }
